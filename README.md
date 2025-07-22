@@ -71,6 +71,47 @@ Each project using these standards should maintain its own `project-overrides.md
 
 These standards are provided as-is for use in Angular projects. Feel free to adapt them to your needs.
 
+## 🤖 Claude Code Integration
+
+To integrate these Angular coding standards into an existing project with Claude Code, provide the following prompt:
+
+```
+Please integrate the Angular coding standards from https://github.com/JrPribs/ANGULAR_CODING_STANDARDS into this project:
+
+1. Add the repository as a Git submodule at the path CODING_STANDARDS:
+   ```bash
+   git submodule add git@github.com:JrPribs/ANGULAR_CODING_STANDARDS.git CODING_STANDARDS
+   ```
+
+2. Update the CLAUDE.md file to include a reference to these standards. Add the following to the instructions section:
+
+   ```markdown
+   ## Angular Coding Standards
+   
+   This project follows the Angular coding standards located in the CODING_STANDARDS directory. 
+   Please ensure all code adheres to these standards:
+   
+   - Review CODING_STANDARDS/angular-cheat-sheet.md for quick reference of law codes
+   - Follow patterns in CODING_STANDARDS/angular_coding_standards.md
+   - Use state management patterns from CODING_STANDARDS/angular-state-architecture.md
+   
+   IMPORTANT: Treat these standards as linting rules. Before writing or modifying any Angular code:
+   1. Check the relevant law codes in the cheat sheet
+   2. Ensure your implementation follows the prescribed patterns
+   3. Document any necessary deviations in project-overrides.md
+   ```
+
+3. Create a project-overrides.md file in the CODING_STANDARDS directory to document any project-specific deviations from the standards.
+
+4. When writing Angular code, always:
+   - Reference the law codes (e.g., CS-R01, CS-C01) from the cheat sheet
+   - Follow the architectural patterns exactly as specified
+   - Treat violations of these standards as errors that must be fixed
+   - Only deviate from standards when absolutely necessary and document the reason in project-overrides.md
+```
+
+This prompt ensures Claude will treat the coding standards as mandatory linting rules that must be followed throughout the project.
+
 ## 🤝 Contributing
 
 This is a living document. If you have suggestions or improvements based on your experience, please open an issue or submit a pull request.
