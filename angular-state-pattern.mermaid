@@ -1,0 +1,63 @@
+---
+title: Angular State Pattern - Visual Overview
+---
+%%{init: {'theme':'neutral'}}%%
+
+%% NOTE: This is a supplementary visualization. For comprehensive state management guidance,
+%% including decision guidelines and best practices, see angular-state-architecture.md
+
+flowchart TB
+    subgraph "Angular Application"
+        subgraph "Global State Layer"
+            Store["Store\n(Global Shared State)"]
+            StoreSignals["Store Signals\n(Reactive State)"]
+            Store <--> StoreSignals
+        end
+        
+        subgraph "Service Layer"
+            Service1["Service A"]
+            Service2["Service B"]
+            ServiceN["Service N"]
+        end
+        
+        subgraph "Component Layer"
+            Comp1["Component A\n(Local State)"]
+            Comp2["Component B\n(Local State)"]
+            CompN["Component N\n(Local State)"]
+            
+            LocalState1["Local Signal State A"]
+            LocalState2["Local Signal State B"]
+            LocalStateN["Local Signal State N"]
+            
+            Comp1 <--> LocalState1
+            Comp2 <--> LocalState2
+            CompN <--> LocalStateN
+        end
+    end
+
+    %% Read operations (Store to Components)
+    StoreSignals --> Comp1
+    StoreSignals --> Comp2
+    StoreSignals --> CompN
+    
+    %% Write operations (Component to Services to Store)
+    Comp1 -- "1. Dispatch Action" --> Service1
+    Comp2 -- "1. Dispatch Action" --> Service2
+    CompN -- "1. Dispatch Action" --> ServiceN
+    
+    Service1 -- "2. Update State" --> Store
+    Service2 -- "2. Update State" --> Store
+    ServiceN -- "2. Update State" --> Store
+    
+    %% Style nodes
+    classDef store fill:#f9f,stroke:#333,stroke-width:2px
+    classDef signal fill:#bbf,stroke:#333,stroke-width:2px
+    classDef service fill:#fdd,stroke:#333,stroke-width:2px
+    classDef component fill:#dfd,stroke:#333,stroke-width:2px
+    classDef local fill:#eff,stroke:#333,stroke-width:1px
+    
+    class Store,Store store
+    class StoreSignals signal
+    class Service1,Service2,ServiceN service
+    class Comp1,Comp2,CompN component
+    class LocalState1,LocalState2,LocalStateN local
