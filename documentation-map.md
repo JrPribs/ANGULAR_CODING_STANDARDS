@@ -11,6 +11,7 @@
 | State architecture guide | [angular-state-architecture.md](./angular-state-architecture.md) |
 | Visual state flow diagram | [angular-state-pattern.mermaid](./angular-state-pattern.mermaid) |
 | ESLint custom rule development | [eslint-custom-rule-development.md](./eslint-custom-rule-development.md) |
+| ESLint TypeScript migration plan | [eslint-plugin-migration-plan.md](./eslint-plugin-migration-plan.md) |
 | Project-specific implementation | [CLAUDE.md](../CLAUDE.md) |
 | WhyTV deviations from standards | [project-overrides.md](./project-overrides.md) |
 | Library documentation | [/docs](../docs/) directory |
@@ -27,6 +28,7 @@ whytv/
 │   ├── angular-state-architecture.md # Detailed state management guide
 │   ├── angular-state-pattern.mermaid # Visual state flow diagram
 │   ├── eslint-custom-rule-development.md # ESLint rule dev guide
+│   ├── eslint-plugin-migration-plan.md # TypeScript migration plan
 │   ├── angular_llms.txt              # Angular's LLM reference
 │   ├── angular_llms-full.txt         # Angular's full LLM docs
 │   ├── documentation-map.md          # This file
@@ -48,6 +50,7 @@ whytv/
 - **Design state architecture** → Read `angular-state-architecture.md`
 - **Visualize state flow** → View `angular-state-pattern.mermaid`
 - **Create custom ESLint rules** → Read `eslint-custom-rule-development.md`
+- **Migrate ESLint plugin to TypeScript** → Follow `eslint-plugin-migration-plan.md`
 - **Decide where code belongs** → Check Decision Guidelines in `angular-state-architecture.md`
 - **Work with WhyTV specifically** → Check `CLAUDE.md`
 - **Use a library** → Check `/docs` directory
