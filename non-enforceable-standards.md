@@ -1,134 +1,138 @@
-# Non-Enforceable Angular Standards
+# Non-Enforceable Angular Coding Standards
 
-This document lists Angular coding standards from the style guide that cannot be automatically enforced through ESLint rules. These standards require human judgment, context awareness, or architectural decisions that static analysis cannot determine.
+This document lists Angular coding standards that require human judgment and cannot be automatically enforced through ESLint. These standards are important for code quality but require code review and developer awareness.
 
-## 🎨 Subjective Code Quality Standards
+## Component Standards
 
-### CS-Q02: Prefer Lodash for array/object operations
-- **Why not enforceable**: "Cleaner syntax" is subjective and context-dependent
-- **Human judgment needed**: Developers must evaluate readability case-by-case
-- **Example scenarios**:
-  ```typescript
-  // Sometimes Lodash is clearer
-  const active = filter(users, { status: 'active' });
-  
-  // Sometimes native is just as clear
-  const doubled = numbers.map(n => n * 2);
-  ```
+### Single Responsibility (Part of CS-C)
+**Standard**: "Components do ONE thing well"
+**Why Not Enforceable**: Determining whether a component has a single responsibility requires understanding the business logic and context. What constitutes "one thing" is subjective and context-dependent.
+**Review Guidance**: Look for components that:
+- Handle multiple unrelated features
+- Mix presentation logic with business logic
+- Have too many injected dependencies (>5 is often a code smell)
 
-### CS-Q04: Use property shorthand with Lodash
-- **Why not enforceable**: Readability preferences vary by team and context
-- **Human judgment needed**: Balance between consistency and clarity
+### Descriptive Naming
+**Standard**: Component names should be descriptive (e.g., `UserProfileComponent` not `Component1`)
+**Why Not Enforceable**: Naming quality is subjective. While we can enforce patterns, we cannot determine if a name accurately describes functionality.
+**Review Guidance**: Names should:
+- Clearly indicate the component's purpose
+- Use domain terminology consistently
+- Follow the pattern: `[Feature][Type]Component`
 
-## 📁 File System Organization
+## Service Standards
 
-### CS-F03: Shared folder only for 3+ feature usage
-- **Why not enforceable**: Requires analyzing entire codebase to count usage
-- **Human judgment needed**: 
-  - Anticipate future usage patterns
-  - Consider logical grouping beyond usage count
-  - Evaluate true "cross-cutting" nature
+### CS-V03: Proper Separation of Concerns
+**Standard**: Services should be separated by concern - data services for API/Firebase, business services for logic, UI services for display
+**Why Not Enforceable**: Determining the "concern" of a service requires understanding its purpose and implementation details.
+**Review Guidance**: 
+- Data services should only handle API/Firebase calls
+- Business services should contain business logic but no HTTP calls
+- UI services should handle display-related state and formatting
 
-### CS-F04: Each component gets its own folder
-- **Why not enforceable**: ESLint operates on file content, not file system
-- **Human judgment needed**: Organize based on component complexity
+### CS-V04: Services Handle HTTP, Stores Handle State
+**Standard**: Services manage HTTP/Firebase operations, stores manage state
+**Why Not Enforceable**: While we can detect HTTP calls in stores or state in services, subtle violations require understanding the code's intent.
+**Review Guidance**:
+- Services should return Promises/Observables, not store state
+- Stores should not make HTTP calls directly
+- State updates should flow through services to stores
 
-### CS-F05: Resolvers in resolvers/ subfolder
-- **Why not enforceable**: File system structure validation beyond ESLint scope
-- **Human judgment needed**: Maintain consistent project structure
+## Router Standards
 
-## 🏗️ Architectural Decisions
+### CS-R04: Resolver Data Auto-Populates Component Inputs
+**Standard**: Component inputs should be automatically populated from resolver data
+**Why Not Enforceable**: This is runtime behavior that depends on proper configuration and naming conventions. Static analysis cannot verify the connection works.
+**Review Guidance**:
+- Resolver property names must match component input names
+- Ensure `withComponentInputBinding()` is configured in main.ts
+- Verify data flows correctly from resolver to component
 
-### CS-R03: Load ALL data in resolvers, not components
-- **Why partially enforceable**: Can detect HTTP calls in components, but not all data loading patterns
-- **Human judgment needed**:
-  - Determine what constitutes "data loading"
-  - Handle edge cases (lazy loading, pagination)
-  - Balance between resolver complexity and component simplicity
+## Testing Standards
 
-### CS-S01: One-way data flow pattern
-- **Why not fully enforceable**: Architectural pattern requires understanding data flow
-- **Human judgment needed**:
-  - Design state management architecture
-  - Decide when to use stores vs. services
-  - Maintain consistency across features
+### CS-X01: Behavioral vs Implementation Testing
+**Standard**: Tests should verify behavior, not implementation details
+**Why Not Enforceable**: Distinguishing between behavioral and implementation testing requires understanding the test's intent and what it's actually verifying.
+**Review Guidance**:
+- Tests should focus on public API and user-facing behavior
+- Avoid testing private methods directly
+- Don't test internal state changes unless they affect behavior
+- Good: "should display error message when login fails"
+- Bad: "should set errorFlag to true"
 
-### CS-S05: No HTTP calls in stores
-- **Why partially enforceable**: Can detect obvious HTTP calls, but not all async operations
-- **Human judgment needed**:
-  - Identify what constitutes external data fetching
-  - Handle WebSocket connections, IndexedDB, etc.
+## Architecture Standards
 
-## 📊 Code Organization & Logic
+### CS-F04: Smart Organization of Shared Code
+**Standard**: Shared code should be "smartly organized" and only contain truly cross-cutting concerns
+**Why Not Enforceable**: "Smart organization" is subjective and depends on the application's architecture and team preferences.
+**Review Guidance**:
+- Shared code should be used by 3+ unrelated features
+- Group shared code by type (models, services, components)
+- Consider creating sub-modules for large shared areas
 
-### CS-T04: Keep templates simple, logic in component
-- **Why not enforceable**: "Simple" is subjective
-- **Human judgment needed**:
-  - Balance template readability with component complexity
-  - Decide when to extract computed properties
-  - Evaluate template expression complexity
+### Feature Cohesion
+**Standard**: Features should be self-contained and cohesive
+**Why Not Enforceable**: Determining feature boundaries and cohesion requires understanding business requirements and domain logic.
+**Review Guidance**:
+- Features should have minimal dependencies on other features
+- All feature-specific code should live within the feature folder
+- Cross-feature communication should go through well-defined interfaces
 
-### CS-V03: Separate data/business/UI services
-- **Why not enforceable**: Service responsibility boundaries are architectural decisions
-- **Human judgment needed**:
-  - Define clear service boundaries
-  - Determine appropriate separation of concerns
-  - Handle services that cross boundaries
+## General Code Quality
 
-## 🔄 Async Pattern Decisions
+### Meaningful Variable and Method Names
+**Standard**: Use descriptive, meaningful names throughout the codebase
+**Why Not Enforceable**: Name quality and meaning are subjective and context-dependent.
+**Review Guidance**:
+- Names should clearly express intent
+- Avoid abbreviations unless widely understood
+- Use consistent naming conventions across the codebase
 
-### CS-A02: Use RxJS only for event streams
-- **Why not fully enforceable**: Determining "event stream" vs "one-time operation" requires context
-- **Human judgment needed**:
-  - Identify true event streams
-  - Decide on Observable vs Promise based on use case
-  - Consider future requirements
+### Appropriate Abstraction Levels
+**Standard**: Code should maintain appropriate levels of abstraction
+**Why Not Enforceable**: Determining the "right" level of abstraction requires understanding the problem domain and future requirements.
+**Review Guidance**:
+- Avoid over-engineering (YAGNI principle)
+- Extract common patterns when used 3+ times
+- Keep abstractions focused and single-purpose
 
-## 📝 Naming and Documentation
+## Code Review Checklist
 
-### Service Naming Convention
-- **Why not fully enforceable**: "Descriptive and specific" is subjective
-- **Human judgment needed**:
-  - Choose between `EmailNotificationService` vs `NotificationService`
-  - Balance specificity with reusability
-  - Consider domain context
+When reviewing code for these non-enforceable standards:
 
-### Component Naming
-- **Why partially enforceable**: Can enforce suffixes, not descriptiveness
-- **Human judgment needed**:
-  - Create meaningful, self-documenting names
-  - Maintain consistency across features
+1. **Components**
+   - [ ] Does the component have a single, clear responsibility?
+   - [ ] Is the component name descriptive of its purpose?
+   - [ ] Is the component properly scoped to its feature?
 
-## 🧪 Testing Standards
+2. **Services**
+   - [ ] Are services properly separated by concern?
+   - [ ] Do data services only handle API calls?
+   - [ ] Do business services avoid direct HTTP calls?
 
-### CS-X01: Test behavior, not implementation
-- **Why not enforceable**: Requires understanding test intent
-- **Human judgment needed**:
-  - Focus on user-facing behavior
-  - Avoid testing internal state
-  - Write meaningful test descriptions
+3. **Architecture**
+   - [ ] Are features properly isolated?
+   - [ ] Is shared code truly shared (3+ features)?
+   - [ ] Are abstractions appropriate and not over-engineered?
 
-## 🎯 Best Practices for Non-Enforceable Standards
+4. **Testing**
+   - [ ] Do tests focus on behavior rather than implementation?
+   - [ ] Are test descriptions clear about what they verify?
+   - [ ] Do tests avoid coupling to internal details?
 
-1. **Code Reviews**: Use these standards as a checklist during reviews
-2. **Team Agreements**: Document team decisions on subjective standards
-3. **Architecture Decision Records (ADRs)**: Document why certain patterns were chosen
-4. **Pair Programming**: Share knowledge about these standards
-5. **Documentation**: Keep examples of good and bad patterns
-6. **Regular Audits**: Periodically review codebase for standard violations
+5. **General Quality**
+   - [ ] Are names meaningful and consistent?
+   - [ ] Is the code's intent clear?
+   - [ ] Would a new developer understand this code?
 
-## 🔧 Tooling Alternatives
+## Enforcement Strategy
 
-For standards that can't be enforced with ESLint, consider:
+While these standards cannot be automatically enforced, teams should:
 
-1. **Architecture linting tools** (e.g., dependency-cruiser) for module boundaries
-2. **Custom build scripts** for file system validation
-3. **Git hooks** for pre-commit checks
-4. **SonarQube** or similar for code quality metrics
-5. **Documentation generators** to ensure proper code organization
+1. Include them in code review checklists
+2. Discuss them during onboarding
+3. Document team-specific interpretations
+4. Use pair programming for complex architectural decisions
+5. Regularly review and refine interpretations based on team experience
 
-## 📚 Related Documentation
-
-- See `angular_coding_standards.md` for full standard descriptions
-- See `angular-cheat-sheet.md` for quick reference
-- See `.eslintrc.json` for enforceable rules configuration
+Remember: The goal is not perfection but consistent improvement in code quality and maintainability.

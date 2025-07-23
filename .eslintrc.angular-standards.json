@@ -14,43 +14,34 @@
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
+      "plugins": [
+        "angular-standards"
+      ],
       "rules": {
-        // CS-C01: Enforce standalone components
+        // Existing Angular ESLint rules for coding standards
         "@angular-eslint/prefer-standalone-component": "error",
-        
-        // CS-C03: Component file size limit (~300 lines, set to 350 for flexibility)
-        "max-lines": ["error", {
-          "max": 350,
-          "skipBlankLines": true,
-          "skipComments": true
-        }],
-        
-        // CS-C05: Enforce OnPush change detection
         "@angular-eslint/prefer-on-push-component-change-detection": "error",
-        
-        // CS-V01: Enforce injectable provided in (partial - requires custom rule for 'root' specifically)
         "@angular-eslint/use-injectable-provided-in": "error",
-        
-        // Component file naming
         "@angular-eslint/component-file-suffix": ["error", {
           "suffixes": ["component.ts", "page.ts"]
         }],
-        
-        // Component selector naming
         "@angular-eslint/component-selector": ["error", {
           "type": "element",
           "prefix": "app",
           "style": "kebab-case"
         }],
-        
-        // Directive selector naming
         "@angular-eslint/directive-selector": ["error", {
           "type": "attribute",
           "prefix": "app",
           "style": "camelCase"
         }],
         
-        // General TypeScript rules for code quality
+        // Custom Angular Standards rules
+        "angular-standards/enforce-signal-inputs": "error",
+        "angular-standards/enforce-inject-function": "error",
+        "angular-standards/no-component-data-fetch": "error",
+        
+        // TypeScript rules
         "@typescript-eslint/explicit-function-return-type": ["error", {
           "allowExpressions": true,
           "allowTypedFunctionExpressions": true
@@ -62,7 +53,14 @@
           "allowNullableObject": true
         }],
         
-        // Import ordering (CS-G standards)
+        // File size limits
+        "max-lines": ["error", {
+          "max": 350,
+          "skipBlankLines": true,
+          "skipComments": true
+        }],
+        
+        // Import ordering
         "import/order": ["error", {
           "groups": [
             "builtin",
@@ -125,7 +123,6 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        // Template-specific rules
         "@angular-eslint/template/no-negated-async": "error",
         "@angular-eslint/template/no-duplicate-attributes": "error"
       }
@@ -135,7 +132,6 @@
         "*.spec.ts"
       ],
       "rules": {
-        // Relax some rules for test files
         "@typescript-eslint/no-explicit-any": "off",
         "max-lines": ["error", {
           "max": 500

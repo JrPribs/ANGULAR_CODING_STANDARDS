@@ -1,57 +1,22 @@
 /**
- * @fileoverview ESLint plugin for Angular coding standards
+ * @fileoverview ESLint plugin for Angular coding standards enforcement
  */
-'use strict';
 
-// Import all rules
-const enforceInjectableProvidedInRoot = require('./rules/enforce-injectable-provided-in-root');
-const useInjectFunction = require('./rules/use-inject-function');
-const enforceStandaloneComponents = require('./rules/enforce-standalone-components');
-const noPromiseInObservable = require('./rules/no-promise-in-observable');
-const enforceFeatureIsolation = require('./rules/enforce-feature-isolation');
-
-// Export plugin
 module.exports = {
   rules: {
-    'enforce-injectable-provided-in-root': enforceInjectableProvidedInRoot,
-    'use-inject-function': useInjectFunction,
-    'enforce-standalone-components': enforceStandaloneComponents,
-    'no-promise-in-observable': noPromiseInObservable,
-    'enforce-feature-isolation': enforceFeatureIsolation
+    'enforce-signal-inputs': require('./rules/enforce-signal-inputs'),
+    'enforce-inject-function': require('./rules/enforce-inject-function'),
+    'no-component-data-fetch': require('./rules/no-component-data-fetch'),
   },
   
   configs: {
     recommended: {
       plugins: ['angular-standards'],
       rules: {
-        'angular-standards/enforce-injectable-provided-in-root': 'error',
-        'angular-standards/use-inject-function': 'error',
-        'angular-standards/enforce-standalone-components': 'error',
-        'angular-standards/no-promise-in-observable': 'error',
-        'angular-standards/enforce-feature-isolation': 'error'
-      }
+        'angular-standards/enforce-signal-inputs': 'error',
+        'angular-standards/enforce-inject-function': 'error',
+        'angular-standards/no-component-data-fetch': 'error',
+      },
     },
-    
-    strict: {
-      plugins: ['angular-standards'],
-      rules: {
-        'angular-standards/enforce-injectable-provided-in-root': 'error',
-        'angular-standards/use-inject-function': 'error',
-        'angular-standards/enforce-standalone-components': 'error',
-        'angular-standards/no-promise-in-observable': 'error',
-        'angular-standards/enforce-feature-isolation': 'error'
-      }
-    },
-    
-    warnings: {
-      plugins: ['angular-standards'],
-      rules: {
-        'angular-standards/enforce-injectable-provided-in-root': 'warn',
-        'angular-standards/use-inject-function': 'warn',
-        'angular-standards/enforce-standalone-components': 'warn',
-        'angular-standards/no-promise-in-observable': 'warn',
-        'angular-standards/enforce-feature-isolation': 'warn'
-      }
-    }
-  }
+  },
 };
