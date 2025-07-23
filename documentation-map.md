@@ -10,6 +10,7 @@
 | Detailed standards with examples | [angular-coding-standards.md](./angular-coding-standards.md) |
 | State architecture guide | [angular-state-architecture.md](./angular-state-architecture.md) |
 | Visual state flow diagram | [angular-state-pattern.mermaid](./angular-state-pattern.mermaid) |
+| ESLint custom rule development | [eslint-custom-rule-development.md](./eslint-custom-rule-development.md) |
 | Project-specific implementation | [CLAUDE.md](../CLAUDE.md) |
 | WhyTV deviations from standards | [project-overrides.md](./project-overrides.md) |
 | Library documentation | [/docs](../docs/) directory |
@@ -25,6 +26,7 @@ whytv/
 │   ├── angular-coding-standards.md   # Comprehensive law book
 │   ├── angular-state-architecture.md # Detailed state management guide
 │   ├── angular-state-pattern.mermaid # Visual state flow diagram
+│   ├── eslint-custom-rule-development.md # ESLint rule dev guide
 │   ├── angular_llms.txt              # Angular's LLM reference
 │   ├── angular_llms-full.txt         # Angular's full LLM docs
 │   ├── documentation-map.md          # This file
@@ -45,6 +47,7 @@ whytv/
 - **Understand a specific rule** → Look up the code in `angular-coding-standards.md`
 - **Design state architecture** → Read `angular-state-architecture.md`
 - **Visualize state flow** → View `angular-state-pattern.mermaid`
+- **Create custom ESLint rules** → Read `eslint-custom-rule-development.md`
 - **Decide where code belongs** → Check Decision Guidelines in `angular-state-architecture.md`
 - **Work with WhyTV specifically** → Check `CLAUDE.md`
 - **Use a library** → Check `/docs` directory
@@ -82,6 +85,12 @@ whytv/
 - Visual representation of state flow
 - Supplementary diagram to state architecture guide
 - Component → Service → Store → Component
+
+**eslint-custom-rule-development.md**
+- Comprehensive guide for creating custom ESLint rules
+- Angular ESLint best practices and utilities
+- TypeScript migration guide
+- Testing and debugging techniques
 
 **project-overrides.md**
 - Documents intentional deviations

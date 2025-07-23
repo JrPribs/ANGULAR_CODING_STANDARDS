@@ -24,6 +24,10 @@
         "@angular-eslint/prefer-on-push-component-change-detection": "error",
         // Note: use-injectable-provided-in is enhanced by our enforce-injectable-provided-in-root rule
         "@angular-eslint/use-injectable-provided-in": "off", // Disabled in favor of our custom rule with auto-fix
+        // Note: prefer-inject complements our enforce-inject-function (stricter for services)
+        "@angular-eslint/prefer-inject": "error",
+        // Note: no-async-lifecycle-method complements our no-component-data-fetch rule
+        "@angular-eslint/no-async-lifecycle-method": "error",
         "@angular-eslint/component-file-suffix": ["error", {
           "suffixes": ["component.ts", "page.ts"]
         }],
@@ -39,15 +43,22 @@
         }],
         
         // Custom Angular Standards rules
+        // Note: enforce-signal-inputs is more focused than @angular-eslint/prefer-signals (CS-C02)
         "angular-standards/enforce-signal-inputs": "error",
+        // Note: enforce-inject-function enforces inject() for services only, stricter than @angular-eslint/prefer-inject (CS-V02)
         "angular-standards/enforce-inject-function": "error",
+        // Note: no-component-data-fetch prevents all data fetching, broader than @angular-eslint/no-async-lifecycle-method (CS-R03)
         "angular-standards/no-component-data-fetch": "error",
+        // Note: enforce-feature-isolation is unique to our architecture (CS-F01/F02)
         "angular-standards/enforce-feature-isolation": ["error", {
           "featureRoot": "src/app",
           "sharedPaths": ["shared", "core"]
         }],
+        // Note: enforce-injectable-provided-in-root has auto-fix capability unlike @angular-eslint/use-injectable-provided-in (CS-V01)
         "angular-standards/enforce-injectable-provided-in-root": "error",
+        // Note: enforce-standalone-components requires explicit standalone:true, stricter than @angular-eslint/prefer-standalone (CS-C01)
         "angular-standards/enforce-standalone-components": "error",
+        // Note: no-promise-in-observable is unique to our standards (CS-A03)
         "angular-standards/no-promise-in-observable": "error",
         
         // TypeScript rules
