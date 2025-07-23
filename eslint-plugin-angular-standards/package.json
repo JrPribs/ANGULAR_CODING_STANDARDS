@@ -1,0 +1,37 @@
+{
+  "name": "eslint-plugin-angular-standards",
+  "version": "1.0.0",
+  "description": "ESLint plugin for enforcing Angular coding standards",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.js",
+    "lint": "eslint lib/**/*.js"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "angular",
+    "coding-standards"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "mocha": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/angular-standards.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/angular-standards/issues"
+  },
+  "homepage": "https://github.com/your-org/angular-standards#readme"
+}

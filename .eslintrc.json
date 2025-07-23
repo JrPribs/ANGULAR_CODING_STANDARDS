@@ -1,0 +1,128 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaVersion": 2022
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "@angular-eslint",
+    "import",
+    "lodash",
+    "angular-standards"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@angular-eslint/recommended",
+    "plugin:@angular-eslint/template/process-inline-templates"
+  ],
+  "rules": {
+    // CS-Q01: TypeScript strict mode enforcement
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    "@typescript-eslint/no-unsafe-member-access": "error",
+    "@typescript-eslint/no-unsafe-call": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
+    
+    // CS-C03: Keep components under 300 lines
+    "max-lines": ["error", {
+      "max": 300,
+      "skipBlankLines": true,
+      "skipComments": true
+    }],
+    
+    // CS-Q03: Import specific Lodash functions
+    "import/no-namespace": "error",
+    "no-restricted-imports": ["error", {
+      "paths": [
+        {
+          "name": "lodash",
+          "message": "Import specific functions from 'lodash-es' instead"
+        }
+      ],
+      "patterns": [
+        {
+          "group": ["lodash/*", "!lodash-es/*"],
+          "message": "Use 'lodash-es' for tree-shakeable imports"
+        }
+      ]
+    }],
+    
+    // CS-A01: Encourage async/await usage
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/require-await": "error",
+    "@typescript-eslint/no-misused-promises": "error",
+    
+    // General code quality
+    "@typescript-eslint/explicit-function-return-type": ["error", {
+      "allowExpressions": true,
+      "allowTypedFunctionExpressions": true,
+      "allowHigherOrderFunctions": true,
+      "allowDirectConstAssertionInArrowFunctions": true
+    }],
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
+    }],
+    
+    // Import ordering
+    "import/order": ["error", {
+      "groups": [
+        "builtin",
+        "external",
+        ["internal", "parent", "sibling", "index"]
+      ],
+      "newlines-between": "always",
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      }
+    }],
+    
+    // Custom Angular Standards Rules
+    "angular-standards/enforce-injectable-provided-in-root": "error", // CS-V01
+    "angular-standards/use-inject-function": "error", // CS-V02
+    "angular-standards/enforce-standalone-components": "error", // CS-C01
+    "angular-standards/no-promise-in-observable": "error", // CS-A03
+    "angular-standards/enforce-feature-isolation": "error", // CS-F01/F02
+    
+    // Angular-specific rules
+    "@angular-eslint/no-input-rename": "error",
+    "@angular-eslint/no-output-rename": "error",
+    "@angular-eslint/use-lifecycle-interface": "error",
+    "@angular-eslint/use-pipe-transform-interface": "error",
+    "@angular-eslint/component-class-suffix": "error",
+    "@angular-eslint/directive-class-suffix": "error",
+    "@angular-eslint/no-host-metadata-property": "error",
+    "@angular-eslint/no-inputs-metadata-property": "error",
+    "@angular-eslint/no-outputs-metadata-property": "error",
+    "@angular-eslint/no-queries-metadata-property": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        // Template-specific rules
+        "@angular-eslint/template/no-negated-async": "error",
+        "@angular-eslint/template/use-track-by-function": "error"
+      }
+    },
+    {
+      "files": ["*.spec.ts", "*.test.ts"],
+      "rules": {
+        // Relax some rules for tests
+        "@typescript-eslint/no-explicit-any": "off",
+        "max-lines": ["error", 500]
+      }
+    }
+  ]
+}
