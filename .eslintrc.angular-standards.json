@@ -19,9 +19,11 @@
       ],
       "rules": {
         // Existing Angular ESLint rules for coding standards
+        // Note: prefer-standalone-component is complemented by our enforce-standalone-components rule
         "@angular-eslint/prefer-standalone-component": "error",
         "@angular-eslint/prefer-on-push-component-change-detection": "error",
-        "@angular-eslint/use-injectable-provided-in": "error",
+        // Note: use-injectable-provided-in is enhanced by our enforce-injectable-provided-in-root rule
+        "@angular-eslint/use-injectable-provided-in": "off", // Disabled in favor of our custom rule with auto-fix
         "@angular-eslint/component-file-suffix": ["error", {
           "suffixes": ["component.ts", "page.ts"]
         }],
@@ -40,6 +42,13 @@
         "angular-standards/enforce-signal-inputs": "error",
         "angular-standards/enforce-inject-function": "error",
         "angular-standards/no-component-data-fetch": "error",
+        "angular-standards/enforce-feature-isolation": ["error", {
+          "featureRoot": "src/app",
+          "sharedPaths": ["shared", "core"]
+        }],
+        "angular-standards/enforce-injectable-provided-in-root": "error",
+        "angular-standards/enforce-standalone-components": "error",
+        "angular-standards/no-promise-in-observable": "error",
         
         // TypeScript rules
         "@typescript-eslint/explicit-function-return-type": ["error", {
