@@ -79,13 +79,11 @@ To integrate these Angular coding standards into an existing project with Claude
 Please integrate the Angular coding standards from https://github.com/JrPribs/ANGULAR_CODING_STANDARDS into this project:
 
 1. Add the repository as a Git submodule at the path CODING_STANDARDS:
-   ```bash
+   
    git submodule add git@github.com:JrPribs/ANGULAR_CODING_STANDARDS.git CODING_STANDARDS
-   ```
 
 2. Update the CLAUDE.md file to include a reference to these standards. Add the following to the instructions section:
 
-   ```markdown
    ## Angular Coding Standards
    
    This project follows the Angular coding standards located in the CODING_STANDARDS directory. 
@@ -99,7 +97,6 @@ Please integrate the Angular coding standards from https://github.com/JrPribs/AN
    1. Check the relevant law codes in the cheat sheet
    2. Ensure your implementation follows the prescribed patterns
    3. Document any necessary deviations in project-overrides.md
-   ```
 
 3. Create a project-overrides.md file in the CODING_STANDARDS directory to document any project-specific deviations from the standards.
 
